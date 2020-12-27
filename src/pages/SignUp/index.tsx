@@ -3,6 +3,8 @@ import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import logoImg from 'assets/logo.svg';
 import Input from 'components/input';
 import Button from 'components/button';
+import Title from 'components/Title/Title';
+import SubTitle from 'components/SubTitle/SubTitle';
 import { BackgroundImage, Container, Content } from './styles';
 
 const SignUp: React.FC = () => {
