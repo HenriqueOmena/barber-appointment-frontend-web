@@ -20,16 +20,23 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
+  const [value, setValue] = useState<string>('');
   const innerRef = useRef<HTMLInputElement>(null);
-  const handleInputBlur = useCallback(() => {
+  const handleInputBlur = useCallback(e => {
+    setIsFilled(!!e.target.value);
     setIsFocused(false);
   }, []);
+  const handleInputFocus = useCallback(e => {
+    setIsFocused(true);
+  }, []);
 
+  const handleValue = (e: React.FormEvent<HTMLInputElement>) =>
+    setValue(e.currentTarget.value);
   return (
-    <Container isFocused={isFocused}>
+    <Container isFilled={isFilled} isFocused={isFocused}>
       {Icon && <Icon size={20} />}
       <input
-        onFocus={() => setIsFocused(true)}
+        onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         ref={inputRef}
         {...propsRest}
