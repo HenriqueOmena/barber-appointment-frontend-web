@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FiArrowLeft, FiMail, FiLock, FiUser } from 'react-icons/fi';
 import logoImg from 'assets/logo.svg';
 import Input from 'components/input';
 import Button from 'components/button';
 import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { BackgroundImage, Container, Content } from './styles';
 
 type Inputs = {
@@ -13,8 +15,26 @@ type Inputs = {
 };
 
 const SignUp: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm<Inputs>();
-  const onSubmit = (data: any) => console.log(data);
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome Obrigatorio'),
+    email: Yup.string()
+      .required('Email Obrigatorio')
+      .email('Digite um email valido'),
+    password: Yup.string().min(6, 'Minimo de 6 digitos'),
+  });
+
+  const { register, handleSubmit, errors } = useForm<Inputs>({
+    // resolver: yupResolver(schema),
+  });
+  const onSubmit = useCallback(async (data: unknown) => {
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      console.log('qqq', err.errors);
+    }
+  }, []);
 
   return (
     <Container>
