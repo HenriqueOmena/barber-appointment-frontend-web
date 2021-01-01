@@ -9,31 +9,25 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { BackgroundImage, Container, Content } from './styles';
 
 type Inputs = {
-  email: string;
   name: string;
+  email: string;
   password: string;
 };
 
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome Obrigatorio'),
+  email: Yup.string()
+    .required('Email Obrigatorio')
+    .email('Digite um email valido'),
+  password: Yup.string().min(6, 'Minimo de 6 digitos'),
+});
 const SignUp: React.FC = () => {
-  const schema = Yup.object().shape({
-    name: Yup.string().required('Nome Obrigatorio'),
-    email: Yup.string()
-      .required('Email Obrigatorio')
-      .email('Digite um email valido'),
-    password: Yup.string().min(6, 'Minimo de 6 digitos'),
+  const { register, handleSubmit, errors } = useForm<any>({
+    resolver: yupResolver(schema),
   });
 
-  const { register, handleSubmit, errors } = useForm<Inputs>({
-    // resolver: yupResolver(schema),
-  });
   const onSubmit = useCallback(async (data: unknown) => {
-    try {
-      await schema.validate(data, {
-        abortEarly: false,
-      });
-    } catch (err) {
-      console.log('qqq', err.errors);
-    }
+    console.log(data);
   }, []);
 
   return (
@@ -48,18 +42,23 @@ const SignUp: React.FC = () => {
           <Input
             icon={FiMail}
             name="email"
+            errors={errors?.email?.message}
             placeholder="Email"
             inputRef={register}
           />
+
           <Input
             icon={FiUser}
             name="name"
+            errors={errors?.name?.message}
             placeholder="Nome"
             inputRef={register}
           />
+
           <Input
             icon={FiLock}
             name="password"
+            errors={errors?.password?.message}
             type="password"
             placeholder="Senha"
             inputRef={register}

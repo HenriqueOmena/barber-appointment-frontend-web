@@ -1,27 +1,23 @@
-import React, {
-  InputHTMLAttributes,
-  useState,
-  useCallback,
-  useRef,
-} from 'react';
+import React, { InputHTMLAttributes, useState, useCallback } from 'react';
 import { IconBaseProps } from 'react-icons';
-import { Container } from './input.style';
+import { FiAlertCircle } from 'react-icons/fi';
+import { Container, Error } from './input.style';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
   inputRef?: React.ClassAttributes<HTMLInputElement>['ref'];
+  errors?: Record<string, unknown>;
 }
 
 const Input: React.FC<InputProps> = ({
   inputRef,
   icon: Icon,
+  errors,
   ...propsRest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-  const [value, setValue] = useState<string>('');
-  const innerRef = useRef<HTMLInputElement>(null);
   const handleInputBlur = useCallback(e => {
     setIsFilled(!!e.target.value);
     setIsFocused(false);
@@ -30,18 +26,20 @@ const Input: React.FC<InputProps> = ({
     setIsFocused(true);
   }, []);
 
-  const handleValue = (e: React.FormEvent<HTMLInputElement>) =>
-    setValue(e.currentTarget.value);
   return (
-    <Container isFilled={isFilled} isFocused={isFocused}>
-      {Icon && <Icon size={20} />}
-      <input
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        ref={inputRef}
-        {...propsRest}
-      />
-    </Container>
+    <>
+      <Container hasError={!!errors} isFilled={isFilled} isFocused={isFocused}>
+        {Icon && <Icon size={20} />}
+        <input
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          ref={inputRef}
+          {...propsRest}
+        />
+        {errors && <FiAlertCircle color="#c53030" size={20} />}
+      </Container>
+      <Error>{errors}</Error>
+    </>
   );
 };
 
