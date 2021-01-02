@@ -6,6 +6,7 @@ import Button from 'components/button';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Reactotron from 'reactotron-react-js';
 import { BackgroundImage, Container, Content } from './styles';
 
 type Inputs = {
@@ -14,20 +15,21 @@ type Inputs = {
   password: string;
 };
 
-const schema = Yup.object().shape({
-  name: Yup.string().required('Nome Obrigatorio'),
-  email: Yup.string()
-    .required('Email Obrigatorio')
-    .email('Digite um email valido'),
-  password: Yup.string().min(6, 'Minimo de 6 digitos'),
-});
 const SignUp: React.FC = () => {
-  const { register, handleSubmit, errors } = useForm<any>({
+  const schema = Yup.object().shape({
+    name: Yup.string().required('Nome Obrigatorio'),
+    email: Yup.string()
+      .required('Email Obrigatorio')
+      .email('Digite um email valido'),
+    password: Yup.string().min(6, 'Minimo de 6 digitos'),
+  });
+
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = useCallback(async (data: unknown) => {
-    console.log(data);
+    // console.log(data);
   }, []);
 
   return (

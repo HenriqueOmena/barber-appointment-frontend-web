@@ -7,7 +7,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
   inputRef?: React.ClassAttributes<HTMLInputElement>['ref'];
-  errors?: Record<string, unknown>;
+  errors?: string;
 }
 
 const Input: React.FC<InputProps> = ({
