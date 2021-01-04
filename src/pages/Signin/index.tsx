@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import logoImg from 'assets/logo.svg';
 import Input from 'components/input';
@@ -6,9 +6,12 @@ import Button from 'components/button';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import AuthContext from 'context/AuthContext';
 import { BackgroundImage, Container, Content } from './styles';
 
 const SignIn: React.FC = () => {
+  const auth = useContext(AuthContext);
+  console.log(auth);
   const schema = Yup.object().shape({
     email: Yup.string()
       .required('Email Obrigatorio')
