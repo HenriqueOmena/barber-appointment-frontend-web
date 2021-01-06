@@ -6,25 +6,31 @@ import Button from 'components/button';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import AuthContext from 'context/AuthContext';
+import { AuthContext } from 'context/AuthContext';
 import { BackgroundImage, Container, Content } from './styles';
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
-  const auth = useContext(AuthContext);
-  console.log(auth);
+  const { signIn } = useContext(AuthContext);
+  // console.log(auth);
   const schema = Yup.object().shape({
     email: Yup.string()
       .required('Email Obrigatorio')
       .email('Digite um email valido'),
-    password: Yup.string().min(6, 'Minimo de 6 digitos'),
+    password: Yup.string().required('Digite uma senha'),
   });
 
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: unknown) => {
-    console.log(data);
+  const onSubmit = useCallback((data: SignInFormData) => {
+    const { email, password } = data;
+    signIn({ email, password });
   }, []);
 
   return (
