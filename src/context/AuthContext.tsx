@@ -1,5 +1,6 @@
+import axios from 'axios';
 import React, { createContext, useCallback } from 'react';
-import api from 'request';
+import barberApi from 'request';
 
 interface SignInCredencials {
   email: string;
@@ -17,15 +18,12 @@ export const AuthContext = createContext<AuthContextProps>(
 
 const AuthProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
-    try {
-      const response = await api.post('sessions', {
-        email,
-        password,
-      });
-      console.log('singIn ', response);
-    } catch (error) {
-      console.log(error.config, 'error');
-    }
+    const response = await barberApi.post('http://localhost:3333/sessions', {
+      email,
+      password,
+    });
+
+    console.log('singIn ', response);
   }, []);
 
   return (

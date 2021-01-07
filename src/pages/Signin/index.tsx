@@ -28,9 +28,11 @@ const SignIn: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback((data: SignInFormData) => {
-    const { email, password } = data;
-    signIn({ email, password });
+  const onSubmit = useCallback(async (data: SignInFormData) => {
+    signIn({
+      email: data.email,
+      password: data.password,
+    });
   }, []);
 
   return (
