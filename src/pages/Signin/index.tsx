@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback } from 'react';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import logoImg from 'assets/logo.svg';
 import Input from 'components/input';
@@ -6,7 +6,7 @@ import Button from 'components/button';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { AuthContext } from 'context/AuthContext';
+import { useAuth } from 'hooks/AuthContext';
 import { BackgroundImage, Container, Content } from './styles';
 
 interface SignInFormData {
@@ -15,8 +15,9 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
-  const { signIn } = useContext(AuthContext);
-  // console.log(auth);
+  const { signIn, user } = useAuth();
+  console.log('aaa', user);
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .required('Email Obrigatorio')
