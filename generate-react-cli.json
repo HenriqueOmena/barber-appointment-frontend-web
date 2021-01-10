@@ -8,7 +8,8 @@
       "path": "src/components",
       "customTemplates": {
         "style": "templates/component/style.tsx",
-        "component": "templates/component/component.tsx"
+        "component": "templates/component/component.tsx",
+        "index": "templates/component/index.tsx"
       },
       "withLazy": false,
       "withStory": false,
