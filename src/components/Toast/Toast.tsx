@@ -2,9 +2,12 @@ import React from 'react';
 import { FiAlertCircle, FiXCircle } from 'react-icons/fi';
 import { ToastContainer, ToastComp } from './Toast.styles';
 
-const Toast: React.FC = ({ children }) => (
+interface ToastProps {
+  type?: 'success' | 'error' | 'warning' | 'info';
+}
+const Toast: React.FC<ToastProps> = ({ children, type }) => (
   <ToastContainer data-testid="Toast">
-    <ToastComp>
+    <ToastComp type={type}>
       <FiAlertCircle size={20} />
 
       <div>
