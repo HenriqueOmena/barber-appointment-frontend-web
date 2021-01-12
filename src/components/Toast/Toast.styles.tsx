@@ -40,6 +40,10 @@ export const ToastComp = styled.div<ToastProps>`
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
 
   display: flex;
+
+  & + div {
+    margin-top: 8px;
+  }
   background-color: #ebf8ff;
   color: #3172b7;
 

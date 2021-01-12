@@ -4,15 +4,23 @@ import { ToastContainer, ToastComp } from './Toast.styles';
 
 interface ToastProps {
   type?: 'success' | 'error' | 'warning' | 'info';
+  highlight?: string;
+  description?: string;
 }
-const Toast: React.FC<ToastProps> = ({ children, type }) => (
+
+const Toast: React.FC<ToastProps> = ({
+  children,
+  type,
+  description,
+  highlight,
+}) => (
   <ToastContainer data-testid="Toast">
-    <ToastComp type={type}>
+    <ToastComp type={'success'}>
       <FiAlertCircle size={20} />
 
       <div>
-        <strong>Aconteceu um erro</strong>
-        <p>Nao foi possivel fazer login na App</p>
+        <strong>{highlight}</strong>
+        <p>{description}</p>
       </div>
 
       <button type="button">

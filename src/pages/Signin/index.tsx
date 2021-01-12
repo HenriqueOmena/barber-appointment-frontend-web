@@ -6,7 +6,7 @@ import Button from 'components/button';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useAuth } from 'hooks/AuthContext';
+import AuthProvider, { useAuth } from 'hooks/useAuth';
 import { BackgroundImage, Container, Content } from './styles';
 
 interface SignInFormData {
