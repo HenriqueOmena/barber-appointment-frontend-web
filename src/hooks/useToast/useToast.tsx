@@ -1,12 +1,8 @@
 import React, { createContext, useCallback, useContext } from 'react';
 import Toast from 'components/Toast';
+import { ToastContextData } from './useToast.interface';
 
-interface ToatContextData {
-  addToast: () => void;
-  removeToast: () => void;
-}
-
-const ToastContext = createContext<ToatContextData>({} as ToatContextData);
+const ToastContext = createContext<ToastContextData>({} as ToastContextData);
 
 const ToastProvider: React.FC = ({ children }) => {
   const addToast = useCallback(() => {
@@ -24,7 +20,7 @@ const ToastProvider: React.FC = ({ children }) => {
   );
 };
 
-function useToast(): ToatContextData {
+function useToast(): ToastContextData {
   const context = useContext(ToastContext);
 
   if (!context) throw new Error('useToast need a Context');

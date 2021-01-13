@@ -1,36 +1,8 @@
 import axios from 'axios';
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import barberApi from 'request';
+import { AuthContextProps, AuthState } from './useAuth.interface';
 
-interface SignInCredencials {
-  email: string;
-  password: string;
-}
-
-interface User {
-  avatar: string;
-  created_at: string;
-  deleted_at?: string;
-  email: string;
-  id: string;
-  name: string;
-  updated_at: string;
-}
-
-interface AuthState {
-  token: string;
-  user: User;
-}
-
-interface AuthContextProps {
-  user: User;
-  signIn: (credentials: SignInCredencials) => Promise<void>;
-  signOut: () => void;
-}
-
-export const AuthContext = createContext<AuthContextProps>(
-  {} as AuthContextProps
-);
+const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState(() => {
@@ -70,7 +42,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-export function useAuth(): AuthContextProps {
+function useAuth(): AuthContextProps {
   const context = useContext(AuthContext);
 
   if (!context) {
@@ -80,4 +52,4 @@ export function useAuth(): AuthContextProps {
   return context;
 }
 
-export default AuthProvider;
+export { AuthProvider, useAuth };
