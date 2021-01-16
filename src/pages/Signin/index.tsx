@@ -6,7 +6,8 @@ import Button from 'components/button';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { AuthProvider, useAuth } from 'hooks/useAuth/useAuth';
+import { useAuth } from 'hooks/useAuth';
+import { useToast } from 'hooks/useToast';
 import { BackgroundImage, Container, Content } from './styles';
 
 interface SignInFormData {
@@ -16,7 +17,7 @@ interface SignInFormData {
 
 const SignIn: React.FC = () => {
   const { signIn, user } = useAuth();
-  console.log('aaa', user);
+  const { addToast } = useToast();
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -29,11 +30,17 @@ const SignIn: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = useCallback(async (data: SignInFormData) => {
+  const onSubmit = useCallback((data: SignInFormData) => {
     signIn({
       email: data.email,
       password: data.password,
-    });
+    }).catch(() =>
+      addToast({
+        type: 'error',
+        title: 'Alerta Title',
+        description: 'alerta de erro',
+      })
+    );
   }, []);
 
   return (

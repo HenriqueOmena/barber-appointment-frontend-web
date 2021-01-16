@@ -1,6 +1,5 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import Toast from 'components/Toast';
-import { uuid } from 'uuidv4';
 import { ToastContextData, ToastMessage } from './useToast.interface';
 
 const ToastContext = createContext<ToastContextData>({} as ToastContextData);
@@ -11,7 +10,7 @@ const ToastProvider: React.FC = ({ children }) => {
   const addToast = useCallback(
     ({ type, title, description }: Omit<ToastMessage, 'id'>) => {
       console.log('addToast');
-      const id = uuid();
+      const id = Math.random().toString();
 
       const toast = {
         id,
@@ -24,8 +23,8 @@ const ToastProvider: React.FC = ({ children }) => {
     },
     [messages]
   );
-  const removeToast = useCallback(() => {
-    console.log('removeToast');
+  const removeToast = useCallback((id: string) => {
+    setMessages(messages.filter(message => message.id !== id));
   }, []);
 
   return (
