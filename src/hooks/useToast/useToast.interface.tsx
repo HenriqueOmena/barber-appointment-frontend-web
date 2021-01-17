@@ -1,4 +1,4 @@
-import { ToastType } from 'components/Toast/Toast.interfaces';
+import { ToastType } from 'components/ToastContainer/ToastContainer.interfaces';
 
 export interface ToastContextData {
   addToast: (messages: Omit<ToastMessage, 'id'>) => void;

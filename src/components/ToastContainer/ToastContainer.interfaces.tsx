@@ -5,7 +5,5 @@ export interface ToastType {
 }
 
 export interface ToastProps extends ToastType {
-  // highlight?: string;
-  // description?: string;
   messages: ToastMessage[];
 }
