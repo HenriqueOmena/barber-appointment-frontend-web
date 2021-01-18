@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { AuthContextProps, AuthState } from './useAuth.interface';
+import barberApi from '../../request';
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
@@ -17,12 +17,12 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await axios.post('http://localhost:3333/sessions', {
+    const response = await barberApi.post('sessions', {
       email,
       password,
     });
 
-    console.log('fuu', response);
+    console.log('UseAuthe response', response);
     const { token, user } = response?.data;
 
     localStorage.setItem('barber:token', token);
