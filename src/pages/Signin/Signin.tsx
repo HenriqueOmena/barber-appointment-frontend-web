@@ -8,7 +8,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useAuth } from 'hooks/useAuth';
 import { useToast } from 'hooks/useToast';
-import { BackgroundImage, Container, Content } from './styles';
+import { Link } from 'react-router-dom';
+import {
+  BackgroundImage,
+  Container,
+  Content,
+  Animation,
+} from './Signin.styles';
 
 interface SignInFormData {
   email: string;
@@ -43,61 +49,42 @@ const SignIn: React.FC = () => {
     });
   }, []);
 
-  // const barberApi = axios.create({
-  //   baseURL: 'http://localhost:3333/',
-  // });
-
-  // const test = () => {
-  //   barberApi
-  //     .post('http://localhost:3333/sessions', {
-  //       email: 'contact2@henriqueomena.com',
-  //       password: '123',
-  //     })
-  //     .then(response => console.log(response, 'onthen'))
-  //     .catch(({ response }) => {
-  //       console.log(response, 'on cath');
-  //       addToast({
-  //         type: 'error',
-  //         title: `${response?.statusText}`,
-  //         description: response?.data?.message,
-  //       });
-  //     });
-  // };
-
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="BarberAppointment" />
+        <Animation>
+          <img src={logoImg} alt="BarberAppointment" />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Faça seu logon</h1>
-          {/* <button onClick={test}>TESTING</button> */}
-          <Input
-            icon={FiMail}
-            name="email"
-            errors={errors?.email?.message}
-            placeholder="Email"
-            inputRef={register}
-          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Faça seu logon</h1>
+            {/* <button onClick={test}>TESTING</button> */}
+            <Input
+              icon={FiMail}
+              name="email"
+              errors={errors?.email?.message}
+              placeholder="Email"
+              inputRef={register}
+            />
 
-          <Input
-            icon={FiLock}
-            name="password"
-            errors={errors?.password?.message}
-            type="password"
-            placeholder="Senha"
-            inputRef={register}
-          />
+            <Input
+              icon={FiLock}
+              name="password"
+              errors={errors?.password?.message}
+              type="password"
+              placeholder="Senha"
+              inputRef={register}
+            />
 
-          <Button type="submit"> Entrar </Button>
+            <Button type="submit"> Entrar </Button>
 
-          <a href="#forgot">Esqueci a senha</a>
-        </form>
+            <a href="#forgot">Esqueci a senha</a>
+          </form>
 
-        <a href="#create">
-          <FiLogIn />
-          Criar Conta
-        </a>
+          <Link to="/signup">
+            <FiLogIn />
+            Criar Conta
+          </Link>
+        </Animation>
       </Content>
       <BackgroundImage />
     </Container>

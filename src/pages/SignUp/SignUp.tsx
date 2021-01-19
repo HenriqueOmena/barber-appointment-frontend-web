@@ -6,7 +6,13 @@ import Button from 'components/button';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { BackgroundImage, Container, Content } from './styles';
+import { Link } from 'react-router-dom';
+import {
+  BackgroundImage,
+  Container,
+  Content,
+  Animation,
+} from './SignUp.styles';
 
 const SignUp: React.FC = () => {
   const schema = Yup.object().shape({
@@ -29,43 +35,45 @@ const SignUp: React.FC = () => {
     <Container>
       <BackgroundImage />
       <Content>
-        <img src={logoImg} alt="BarberAppointment" />
+        <Animation>
+          <img src={logoImg} alt="BarberAppointment" />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Faça seu Cadastro</h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Faça seu Cadastro</h1>
 
-          <Input
-            icon={FiMail}
-            name="email"
-            errors={errors?.email?.message}
-            placeholder="Email"
-            inputRef={register}
-          />
+            <Input
+              icon={FiMail}
+              name="email"
+              errors={errors?.email?.message}
+              placeholder="Email"
+              inputRef={register}
+            />
 
-          <Input
-            icon={FiUser}
-            name="name"
-            errors={errors?.name?.message}
-            placeholder="Nome"
-            inputRef={register}
-          />
+            <Input
+              icon={FiUser}
+              name="name"
+              errors={errors?.name?.message}
+              placeholder="Nome"
+              inputRef={register}
+            />
 
-          <Input
-            icon={FiLock}
-            name="password"
-            errors={errors?.password?.message}
-            type="password"
-            placeholder="Senha"
-            inputRef={register}
-          />
+            <Input
+              icon={FiLock}
+              name="password"
+              errors={errors?.password?.message}
+              type="password"
+              placeholder="Senha"
+              inputRef={register}
+            />
 
-          <Button type="submit"> Cadastrar </Button>
-        </form>
+            <Button type="submit"> Cadastrar </Button>
+          </form>
 
-        <a href="#create">
-          <FiArrowLeft />
-          Voltar para Logon
-        </a>
+          <Link to="/">
+            <FiArrowLeft />
+            Voltar para Logon
+          </Link>
+        </Animation>
       </Content>
     </Container>
   );
